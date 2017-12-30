@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 import SwiftValidators
 
 class AddWishlistItemViewController: UITableViewController {
@@ -55,6 +56,33 @@ class AddWishlistItemViewController: UITableViewController {
     }
     
     @IBAction func save() {
+        let item = try! Realm().objects(WishlistItem.self).first{ $0.book?.isbn == isbnField.text }
+        if item != nil {
+            let alert = UIAlertController(title: "Boek reeds toegevoegd",
+                                          message: "Dit boek zit reeds in je verlanglijstje, voeg een ander boek toe",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let book = try! Realm().objects(Book.self).first{ $0.isbn == isbnField.text }
+        if book != nil {
+            let alert = UIAlertController(title: "Boek reeds toegevoegd",
+                                          message: "Dit boek zit reeds in je boekenkast. Ben je zeker dat je het aan je verlanglijstje wil toevoegen?",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ja", style: .default, handler: { (action) in
+                self.saveConfirmed()
+            }))
+            alert.addAction(UIAlertAction(title: "Nee", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        saveConfirmed()
+    }
+    
+    func saveConfirmed() {
         if let _ = item {
             // bestaand boek bewerkt
             performSegue(withIdentifier: "didEditWishlistItem", sender: self)

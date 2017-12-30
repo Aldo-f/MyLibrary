@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -292,27 +293,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welkom!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyW-uZ-NWa">
-                                <rect key="frame" x="16" y="28" width="97.5" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welkom!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiL-3i-cYZ">
+                                <rect key="frame" x="139" y="36" width="97.5" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hier kan je een verzameling van al je boeken bijhouden, alsook een verlanglijstje." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRk-Gf-FPq">
-                                <rect key="frame" x="16" y="68" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNW-z5-y8c">
+                                <rect key="frame" x="0.0" y="75.5" width="375" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hier kan je een verzameling van al je boeken bijhouden, alsook een verlanglijstje." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alo-ln-XuX">
+                                        <rect key="frame" x="0.0" y="0.0" width="375.5" height="41"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="alo-ln-XuX" secondAttribute="bottom" id="6mG-Bm-JQL"/>
+                                    <constraint firstItem="alo-ln-XuX" firstAttribute="top" secondItem="eNW-z5-y8c" secondAttribute="top" id="QYc-8F-dqg"/>
+                                    <constraint firstItem="alo-ln-XuX" firstAttribute="leading" secondItem="eNW-z5-y8c" secondAttribute="leading" id="t4s-sP-ivk"/>
+                                    <constraint firstAttribute="trailing" secondItem="alo-ln-XuX" secondAttribute="trailing" id="zHU-eZ-cdc"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-oa-8Jd">
+                                <rect key="frame" x="0.0" y="300" width="375" height="68"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNQ-ta-VfK">
+                                        <rect key="frame" x="111.5" y="0.0" width="152" height="30"/>
+                                        <state key="normal" title="Ga naar je boekenkast"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceG-BG-ahn">
+                                        <rect key="frame" x="108" y="38" width="159" height="30"/>
+                                        <state key="normal" title="Ga naar je verlanglijstje"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="TRk-Gf-FPq" secondAttribute="trailing" id="5bg-Ku-CfM"/>
-                            <constraint firstItem="TRk-Gf-FPq" firstAttribute="leading" secondItem="zO3-bw-CSF" secondAttribute="leading" constant="16" id="6dv-L2-KtR"/>
-                            <constraint firstItem="TRk-Gf-FPq" firstAttribute="top" secondItem="cyW-uZ-NWa" secondAttribute="bottom" constant="8" id="JQl-RU-zF2"/>
-                            <constraint firstItem="cyW-uZ-NWa" firstAttribute="leading" secondItem="zO3-bw-CSF" secondAttribute="leading" constant="16" id="RHd-Xl-lIG"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="cyW-uZ-NWa" secondAttribute="trailing" id="STw-eR-HiL"/>
-                            <constraint firstItem="cyW-uZ-NWa" firstAttribute="top" secondItem="zO3-bw-CSF" secondAttribute="top" constant="8" id="ekP-kf-yw6"/>
+                            <constraint firstItem="eNW-z5-y8c" firstAttribute="leading" secondItem="zO3-bw-CSF" secondAttribute="leading" id="Ay2-HS-WAz"/>
+                            <constraint firstItem="Gdw-oa-8Jd" firstAttribute="leading" secondItem="b4F-Wl-gJh" secondAttribute="leading" id="C7n-IL-S7I"/>
+                            <constraint firstItem="Gdw-oa-8Jd" firstAttribute="centerY" secondItem="b4F-Wl-gJh" secondAttribute="centerY" id="K0K-U0-eDN"/>
+                            <constraint firstItem="CiL-3i-cYZ" firstAttribute="centerX" secondItem="b4F-Wl-gJh" secondAttribute="centerX" id="TBI-2U-9DS"/>
+                            <constraint firstAttribute="trailing" secondItem="Gdw-oa-8Jd" secondAttribute="trailing" id="eYb-U0-jsH"/>
+                            <constraint firstItem="eNW-z5-y8c" firstAttribute="trailing" secondItem="zO3-bw-CSF" secondAttribute="trailing" id="hgo-Z1-CP3"/>
+                            <constraint firstItem="CiL-3i-cYZ" firstAttribute="top" secondItem="zO3-bw-CSF" secondAttribute="top" constant="16" id="t27-OJ-pd0"/>
+                            <constraint firstItem="eNW-z5-y8c" firstAttribute="top" secondItem="CiL-3i-cYZ" secondAttribute="bottom" constant="8" symbolic="YES" id="wKh-Y6-8bg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zO3-bw-CSF"/>
                     </view>
@@ -320,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrF-uv-FQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="641" y="-425"/>
+            <point key="canvasLocation" x="640.79999999999995" y="-425.03748125937034"/>
         </scene>
         <!--Startscherm-->
         <scene sceneID="FP5-AP-289">
@@ -371,7 +399,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="aed-KO-dbJ">
+                            <searchBar contentMode="redraw" text="" placeholder="Zoek een item" translatesAutoresizingMaskIntoConstraints="NO" id="aed-KO-dbJ">
                                 <rect key="frame" x="0.0" y="116" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
