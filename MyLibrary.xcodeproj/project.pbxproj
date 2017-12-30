@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4E01CFF11F9B2D8600BAEA22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01CFF01F9B2D8600BAEA22 /* AppDelegate.swift */; };
 		4E01CFF61F9B2D8600BAEA22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E01CFF41F9B2D8600BAEA22 /* Main.storyboard */; };
-		4E01CFF81F9B2D8600BAEA22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E01CFF71F9B2D8600BAEA22 /* Assets.xcassets */; };
 		4E01CFFB1F9B2D8600BAEA22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E01CFF91F9B2D8600BAEA22 /* LaunchScreen.storyboard */; };
 		4E0951E41FD6971100EE08E5 /* AddWishlistItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0951E31FD6971100EE08E5 /* AddWishlistItemViewController.swift */; };
 		4E6DB85D1FADCB3100DE9491 /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6DB85C1FADCB3100DE9491 /* AddBookViewController.swift */; };
@@ -30,7 +29,6 @@
 		4E01CFED1F9B2D8600BAEA22 /* MyLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E01CFF01F9B2D8600BAEA22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E01CFF51F9B2D8600BAEA22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4E01CFF71F9B2D8600BAEA22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E01CFFA1F9B2D8600BAEA22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E01CFFC1F9B2D8600BAEA22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0951E31FD6971100EE08E5 /* AddWishlistItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishlistItemViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				4E6DB8581FADCA9000DE9491 /* ViewControllers */,
 				4E01CFF01F9B2D8600BAEA22 /* AppDelegate.swift */,
 				4E01CFF41F9B2D8600BAEA22 /* Main.storyboard */,
-				4E01CFF71F9B2D8600BAEA22 /* Assets.xcassets */,
 				4E01CFF91F9B2D8600BAEA22 /* LaunchScreen.storyboard */,
 				4E01CFFC1F9B2D8600BAEA22 /* Info.plist */,
 			);
@@ -218,7 +215,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E01CFFB1F9B2D8600BAEA22 /* LaunchScreen.storyboard in Resources */,
-				4E01CFF81F9B2D8600BAEA22 /* Assets.xcassets in Resources */,
 				4E01CFF61F9B2D8600BAEA22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
