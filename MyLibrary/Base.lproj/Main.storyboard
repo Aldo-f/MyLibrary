@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z3a-gf-aFj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z3a-gf-aFj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,9 +53,12 @@
                                     <outlet property="delegate" destination="1OX-7L-L95" id="NEF-gg-1Ab"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bZG-5O-fbk">
+                            <searchBar contentMode="redraw" text="" placeholder="Zoek een boek" translatesAutoresizingMaskIntoConstraints="NO" id="bZG-5O-fbk">
                                 <rect key="frame" x="0.0" y="116" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1OX-7L-L95" id="Tii-Zp-EjX"/>
+                                </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,6 +81,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="bZG-5O-fbk" id="iNm-H7-uHO"/>
                         <outlet property="tableView" destination="VIv-gJ-BPn" id="HcS-cO-wcU"/>
                         <segue destination="qUC-7g-vmZ" kind="show" identifier="editBook" id="LVQ-d5-2Xc"/>
                     </connections>
@@ -367,8 +371,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="aed-KO-dbJ">
+                                <rect key="frame" x="0.0" y="116" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gLD-wd-tso" id="TX2-YJ-hSa"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4uv-XZ-qzv">
-                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="wishlistItemCell" rowHeight="70" id="8fW-Cx-O5g" customClass="WishlistItemCell" customModule="MyLibrary" customModuleProvider="target">
@@ -429,10 +440,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="leading" secondItem="6L1-kw-TkD" secondAttribute="leading" id="HJ6-KU-yxn"/>
-                            <constraint firstItem="6L1-kw-TkD" firstAttribute="trailing" secondItem="4uv-XZ-qzv" secondAttribute="trailing" id="HT7-xF-pS7"/>
-                            <constraint firstItem="6L1-kw-TkD" firstAttribute="bottom" secondItem="4uv-XZ-qzv" secondAttribute="bottom" id="cVM-Nw-m2p"/>
-                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="top" secondItem="6L1-kw-TkD" secondAttribute="top" id="rPd-Lt-ndX"/>
+                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="leading" secondItem="6L1-kw-TkD" secondAttribute="leading" id="188-zR-gT7"/>
+                            <constraint firstItem="aed-KO-dbJ" firstAttribute="top" secondItem="6L1-kw-TkD" secondAttribute="top" id="3a3-vV-ES4"/>
+                            <constraint firstItem="aed-KO-dbJ" firstAttribute="trailing" secondItem="6L1-kw-TkD" secondAttribute="trailing" id="5Dh-db-yUm"/>
+                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="trailing" secondItem="6L1-kw-TkD" secondAttribute="trailing" id="LAE-v8-GTY"/>
+                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="bottom" secondItem="6L1-kw-TkD" secondAttribute="bottom" id="MqL-Ui-rjA"/>
+                            <constraint firstItem="aed-KO-dbJ" firstAttribute="leading" secondItem="6L1-kw-TkD" secondAttribute="leading" id="NWk-Zo-73Z"/>
+                            <constraint firstItem="4uv-XZ-qzv" firstAttribute="top" secondItem="aed-KO-dbJ" secondAttribute="bottom" id="Ucf-xt-gRn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6L1-kw-TkD"/>
                     </view>
@@ -444,13 +458,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="aed-KO-dbJ" id="yW8-mE-q2p"/>
                         <outlet property="tableView" destination="4uv-XZ-qzv" id="Py3-Dh-wRb"/>
                         <segue destination="Dwb-4i-ld4" kind="show" identifier="editWishlistItem" id="u7y-qJ-Xms"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="co8-mo-AT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="1075"/>
+            <point key="canvasLocation" x="1520.8" y="1074.5127436281859"/>
         </scene>
         <!--Nieuw item-->
         <scene sceneID="Xas-DN-7ah">
@@ -692,7 +707,7 @@
         <image name="barcode" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sRP-e3-aiB"/>
+        <segue reference="u7y-qJ-Xms"/>
         <segue reference="rTR-Pq-BH1"/>
         <segue reference="LVQ-d5-2Xc"/>
     </inferredMetricsTieBreakers>

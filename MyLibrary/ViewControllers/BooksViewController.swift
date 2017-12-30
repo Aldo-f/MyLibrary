@@ -7,13 +7,26 @@ import RealmSwift
 class BooksViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var indexPathToEdit: IndexPath!
+    
+    // dit geeft aan of er gezocht werd
+    // zo ja, dan wordt het aantal van de gefilterde lijst teruggeven aan de UITableView
+    var searchActive: Bool = false
+    
+    private var scopeButtons: [String] = ["Auteur", "Titel"]
     
     var books: Results<Book>!
     {
         didSet{
             booksPerAuthor = books.grouped{ $0.authors }
+        }
+    }
+    
+    var filteredBooks: [Book]! {
+        didSet {
+            booksPerAuthor = filteredBooks.grouped{ $0.authors }
         }
     }
     
@@ -25,6 +38,12 @@ class BooksViewController: UIViewController {
     
     override func viewDidLoad() {
         books = try! Realm().objects(Book.self)
+        
+        // Dit zorgt ervoor dat het keyboard verdwijnt wanneer ernaast geklikt wordt tijdens het zoeken
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        searchBar.scopeButtonTitles = scopeButtons
     }
     
     @IBAction func unwindFromAddBook(_ segue: UIStoryboardSegue) {
@@ -184,10 +203,82 @@ extension BooksViewController: UITableViewDataSource {
     }
 }
 
+extension BooksViewController: UISearchBarDelegate {
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = false
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        booksPerAuthor = books.grouped { $0.authors }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if searchBar.text != nil {
+            filterBooks(by: searchBar.text!)
+            self.tableView.reloadData()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            booksPerAuthor = books.grouped{ $0.authors }
+        } else {
+            filterBooks(by: searchText)
+        }
+
+        self.tableView.reloadData()
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        searchBar.endEditing(true)
+    }
+    
+    func filterBooks(by searchText: String) {
+        filteredBooks = books.filter({ (book) -> Bool in
+            var tmp: NSString = ""
+            if searchBar.selectedScopeButtonIndex == 0 {
+                // Auteurs
+                tmp = book.authors as NSString
+            }
+            if searchBar.selectedScopeButtonIndex == 1 {
+                // Titel
+                tmp = book.name as NSString
+            }
+            
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
+    }
+}
+
 /**
  Gekopieerd van https://medium.com/ios-os-x-development/little-snippet-group-by-in-swift-3-5be0a06307db
  */
 extension Results {
+    func grouped<T>(by criteria: (Element) -> T) -> [T: [Element]] {
+        var groups = [T: [Element]]()
+        for element in self {
+            let key = criteria(element)
+            if groups.keys.contains(key) == false {
+                groups[key] = [Element]()
+            }
+            groups[key]?.append(element)
+        }
+        return groups
+    }
+}
+
+extension Array {
     func grouped<T>(by criteria: (Element) -> T) -> [T: [Element]] {
         var groups = [T: [Element]]()
         for element in self {

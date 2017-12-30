@@ -4,13 +4,24 @@ import RealmSwift
 class WishlistViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var indexPathToEdit: IndexPath!
+    var searchActive: Bool = false
+    
+    private var scopeButtons: [String] = ["Auteur", "Titel"]
     
     var items: Results<WishlistItem>!
+    var filteredItems: [WishlistItem]!
     
     override func viewDidLoad() {
         items = try! Realm().objects(WishlistItem.self)
+        
+        // Dit zorgt ervoor dat het keyboard verdwijnt wanneer ernaast geklikt wordt tijdens het zoeken
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        searchBar.scopeButtonTitles = scopeButtons
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,12 +101,87 @@ extension WishlistViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchActive {
+            return filteredItems.count
+        }
+
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wishlistItemCell", for: indexPath) as! WishlistItemCell
-        cell.wishlistItem = items[indexPath.row]
+        
+        if searchActive {
+            cell.wishlistItem = filteredItems[indexPath.row]
+        } else {
+            cell.wishlistItem = items[indexPath.row]
+        }
+
         return cell
+    }
+}
+
+extension WishlistViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = false
+        searchActive = false
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = true
+        searchActive = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+        dismissKeyboard()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if searchBar.text != nil {
+            filterItems(by: searchBar.text!)
+            searchActive = true
+            self.tableView.reloadData()
+        } else {
+            searchActive = false
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            filterItems(by: searchText)
+            searchActive = true
+        } else {
+            searchActive = false
+        }
+
+        self.tableView.reloadData()
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        searchBar.endEditing(true)
+    }
+    
+    func filterItems(by searchText: String) {
+        filteredItems = items.filter({ (item) -> Bool in
+            var tmp: NSString = ""
+            if searchBar.selectedScopeButtonIndex == 0 {
+                // Auteurs
+                tmp = (item.book?.authors ?? "") as NSString
+            }
+            if searchBar.selectedScopeButtonIndex == 1 {
+                // Titel
+                tmp = (item.book?.name ?? "") as NSString
+            }
+            
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
     }
 }
