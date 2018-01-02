@@ -288,7 +288,7 @@
         <!--Home-->
         <scene sceneID="62L-f5-Hef">
             <objects>
-                <viewController id="s75-Dq-LTM" sceneMemberID="viewController">
+                <viewController id="s75-Dq-LTM" customClass="HomeViewController" customModule="MyLibrary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b4F-Wl-gJh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -318,15 +318,23 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-oa-8Jd">
-                                <rect key="frame" x="0.0" y="300" width="375" height="68"/>
+                                <rect key="frame" x="0.0" y="294" width="375" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNQ-ta-VfK">
-                                        <rect key="frame" x="111.5" y="0.0" width="152" height="30"/>
+                                        <rect key="frame" x="91" y="0.0" width="193" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Ga naar je boekenkast"/>
+                                        <connections>
+                                            <action selector="showLibrary" destination="s75-Dq-LTM" eventType="touchUpInside" id="AKL-BH-Mh3"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceG-BG-ahn">
-                                        <rect key="frame" x="108" y="38" width="159" height="30"/>
+                                        <rect key="frame" x="87.5" y="44" width="200" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Ga naar je verlanglijstje"/>
+                                        <connections>
+                                            <action selector="showWishlist" destination="s75-Dq-LTM" eventType="touchUpInside" id="c7U-f0-aoB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
