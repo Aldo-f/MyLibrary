@@ -41,6 +41,8 @@ class BooksViewController: UIViewController {
         
         // Dit zorgt ervoor dat het keyboard verdwijnt wanneer ernaast geklikt wordt tijdens het zoeken
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        // anders werkt de didSelectRowAt van de tableview niet meer omdat de TapGestureRecognizer steeds de touch opvangt
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
         searchBar.scopeButtonTitles = scopeButtons

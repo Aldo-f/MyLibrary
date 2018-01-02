@@ -50,8 +50,8 @@
                                 </prototypes>
                                 <sections/>
                                 <connections>
-                                    <outlet property="dataSource" destination="1OX-7L-L95" id="Dre-RQ-7hu"/>
-                                    <outlet property="delegate" destination="1OX-7L-L95" id="NEF-gg-1Ab"/>
+                                    <outlet property="dataSource" destination="1OX-7L-L95" id="LJI-dU-3VW"/>
+                                    <outlet property="delegate" destination="1OX-7L-L95" id="3WC-Iv-XRI"/>
                                 </connections>
                             </tableView>
                             <searchBar contentMode="redraw" text="" placeholder="Zoek een boek" translatesAutoresizingMaskIntoConstraints="NO" id="bZG-5O-fbk">

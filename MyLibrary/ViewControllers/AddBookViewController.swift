@@ -44,14 +44,16 @@ class AddBookViewController: UITableViewController {
     }
     
     @IBAction func save() {
-        let book = try! Realm().objects(Book.self).first{ $0.isbn == isbnField.text }
-        if book != nil {
-            let alert = UIAlertController(title: "Boek reeds toegevoegd",
-                                          message: "Dit boek zit reeds in je boekenkast, voeg een ander boek toe",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
+        if !bookEdited {
+            let book = try! Realm().objects(Book.self).first{ $0.isbn == isbnField.text }
+            if book != nil {
+                let alert = UIAlertController(title: "Boek reeds toegevoegd",
+                                              message: "Dit boek zit reeds in je boekenkast, voeg een ander boek toe",
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
         }
 
         if bookEdited {
