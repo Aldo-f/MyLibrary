@@ -102,18 +102,27 @@ extension WishlistViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title: "Verwijder") {
             (action, view, completionHandler) in
 
-            let wishlistItem = self.items[indexPath.row]
+            let alert = UIAlertController(title: "Boek verwijderen", message: "Ben je zeker dat je dit boek wil verwijderen?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ja", style: .destructive, handler: { (action) in
+                let wishlistItem = self.items[indexPath.row]
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(wishlistItem)
+                }
+                
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
+
+                completionHandler(true)
+            }))
             
-            let realm = try! Realm()
-            try! realm.write {
-                realm.delete(wishlistItem)
-            }
-            
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
-            
-            completionHandler(true)
+            alert.addAction(UIAlertAction(title: "Nee", style: .default, handler: { (action) in
+                completionHandler(false)
+            }))
+        
+            self.present(alert, animated: true, completion: nil)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction, itemBoughtAction])
     }

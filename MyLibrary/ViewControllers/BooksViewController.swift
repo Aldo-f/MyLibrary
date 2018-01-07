@@ -137,23 +137,32 @@ extension BooksViewController: UITableViewDelegate {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Verwijder") {
             (action, view, completionHandler) in
-            // we moeten het boek zelf zoeken omdat we met sections
-            // de indexen door elkaar halen
-            let author = self.getAuthorAt(index: indexPath.section)
-            let bookToDelete = self.booksPerAuthor[author]![indexPath.row]
-            self.remove(book: bookToDelete)
+            let alert = UIAlertController(title: "Boek verwijderen", message: "Ben je zeker dat je dit boek wil verwijderen?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ja", style: .destructive, handler: { (action) in
+                // we moeten het boek zelf zoeken omdat we met sections
+                // de indexen door elkaar halen
+                let author = self.getAuthorAt(index: indexPath.section)
+                let bookToDelete = self.booksPerAuthor[author]![indexPath.row]
+                self.remove(book: bookToDelete)
+                
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                // als het het laatste boek van auteur was, sectie ook weg
+                if self.booksPerAuthor[author] == nil {
+                    tableView.deleteSections([indexPath.section], with: .automatic)
+                }
+                
+                tableView.endUpdates()
+                
+                completionHandler(true)
+            }))
             
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            alert.addAction(UIAlertAction(title: "Nee", style: .default, handler: { (action) in
+                completionHandler(false)
+            }))
             
-            // als het het laatste boek van auteur was, sectie ook weg
-            if self.booksPerAuthor[author] == nil {
-                tableView.deleteSections([indexPath.section], with: .automatic)
-            }
-
-            tableView.endUpdates()
-            
-            completionHandler(true)
+            self.present(alert, animated: true, completion: nil)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
