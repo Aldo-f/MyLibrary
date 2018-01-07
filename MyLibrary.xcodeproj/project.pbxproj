@@ -15,7 +15,6 @@
 		4E6DB85D1FADCB3100DE9491 /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6DB85C1FADCB3100DE9491 /* AddBookViewController.swift */; };
 		4E6DB85F1FADCB4400DE9491 /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6DB85E1FADCB4400DE9491 /* BooksViewController.swift */; };
 		4E7242301FFBCE18002217E8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72422F1FFBCE18002217E8 /* HomeViewController.swift */; };
-		4EA8663A1FCC0A1800F0A7B4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA866341FCC0A1800F0A7B4 /* User.swift */; };
 		4EA8663C1FCC0A1800F0A7B4 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA866361FCC0A1800F0A7B4 /* Book.swift */; };
 		4EC35BF61FBF04B40095853E /* BookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC35BF51FBF04B40095853E /* BookCell.swift */; };
 		4EE176B71FCCA652001FBFF3 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE176B61FCCA652001FBFF3 /* BarcodeScannerViewController.swift */; };
@@ -38,7 +37,6 @@
 		4E6DB85C1FADCB3100DE9491 /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		4E6DB85E1FADCB4400DE9491 /* BooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		4E72422F1FFBCE18002217E8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		4EA866341FCC0A1800F0A7B4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4EA866361FCC0A1800F0A7B4 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		4EC35BF51FBF04B40095853E /* BookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCell.swift; sourceTree = "<group>"; };
 		4EE176B61FCCA652001FBFF3 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				4EA866361FCC0A1800F0A7B4 /* Book.swift */,
-				4EA866341FCC0A1800F0A7B4 /* User.swift */,
 				4EE79BEA1FD68B1300528AE4 /* WishlistItem.swift */,
 			);
 			path = Models;
@@ -304,7 +301,6 @@
 				4E01CFF11F9B2D8600BAEA22 /* AppDelegate.swift in Sources */,
 				4EA8663C1FCC0A1800F0A7B4 /* Book.swift in Sources */,
 				4EE79BE91FD68A9F00528AE4 /* WishlistItemCell.swift in Sources */,
-				4EA8663A1FCC0A1800F0A7B4 /* User.swift in Sources */,
 				4E0951E41FD6971100EE08E5 /* AddWishlistItemViewController.swift in Sources */,
 				4EE79BEB1FD68B1300528AE4 /* WishlistItem.swift in Sources */,
 				4EE176BA1FCCAA9E001FBFF3 /* BarcodeDataService.swift in Sources */,

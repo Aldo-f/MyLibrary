@@ -13,19 +13,20 @@ class AddWishlistItemViewController: UITableViewController {
     @IBOutlet weak var urlField: UITextField!
     
     var item: WishlistItem?
+    var itemEdited = false
     
     var bookTask: URLSessionTask?
     
     private func fillInTextFields() {
         if let item = item {
-            authorField.text = item.book!.authors
-            titleField.text = item.book!.name
-            isbnField.text = item.book!.isbn
-            descriptionField.text = item.book!.bookDescription
+            authorField.text = item.authors
+            titleField.text = item.name
+            isbnField.text = item.isbn
+            descriptionField.text = item.bookDescription
             priceField.text = "\(item.price)"
             urlField.text = item.url
             
-            // enable savebutton because when you start editing a book, it has to be valid
+            // enable savebutton because when you start editing a wishlistitem, it has to be valid
             saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
@@ -46,8 +47,18 @@ class AddWishlistItemViewController: UITableViewController {
         switch segue.identifier {
         case "didAddWishlistItem"?:
             let price = Double(priceField.text!)
-            item = WishlistItem(name: titleField.text!, authors: authorField.text!, isbn: isbnField.text!, price: price!, url: urlField.text!,
-                                description: descriptionField.text)
+            item = WishlistItem(name: titleField.text!, authors: authorField.text!, isbn: isbnField.text!, price: price!, url: urlField.text!, description: descriptionField.text)
+        case "didEditWishlistItem"?:
+            let realm = try! Realm()
+            let price = Double(priceField.text!)
+            try! realm.write{
+                item!.name = titleField.text!
+                item!.authors = authorField.text!
+                item!.isbn = isbnField.text!
+                item!.bookDescription = descriptionField.text
+                item!.price = price!
+                item!.url = urlField.text!
+            }
         case "scanBarcode"?:
             break
         default:
@@ -56,27 +67,15 @@ class AddWishlistItemViewController: UITableViewController {
     }
     
     @IBAction func save() {
-        let item = try! Realm().objects(WishlistItem.self).first{ $0.book?.isbn == isbnField.text }
-        if item != nil {
-            let alert = UIAlertController(title: "Boek reeds toegevoegd",
-                                          message: "Dit boek zit reeds in je verlanglijstje, voeg een ander boek toe",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        let book = try! Realm().objects(Book.self).first{ $0.isbn == isbnField.text }
-        if book != nil {
-            let alert = UIAlertController(title: "Boek reeds toegevoegd",
-                                          message: "Dit boek zit reeds in je boekenkast. Ben je zeker dat je het aan je verlanglijstje wil toevoegen?",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ja", style: .default, handler: { (action) in
-                self.saveConfirmed()
-            }))
-            alert.addAction(UIAlertAction(title: "Nee", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
+        if !itemEdited {
+            if item != nil {
+                let alert = UIAlertController(title: "Boek reeds toegevoegd",
+                                              message: "Dit boek zit reeds in je verlanglijstje, voeg een ander boek toe",
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
         }
         
         saveConfirmed()

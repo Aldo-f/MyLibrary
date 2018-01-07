@@ -8,8 +8,8 @@ class WishlistItemCell: UITableViewCell {
     
     var wishlistItem: WishlistItem! {
         didSet {
-            self.authorsField.text = wishlistItem.book!.authors
-            self.titleField.text = wishlistItem.book!.name
+            self.authorsField.text = wishlistItem.authors
+            self.titleField.text = wishlistItem.name
             self.priceField.text = wishlistItem.formattedPrice
         }
     }

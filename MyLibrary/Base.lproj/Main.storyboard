@@ -708,7 +708,7 @@
                         <outlet property="titleField" destination="FVW-Gb-Wbm" id="HhO-Jt-4VE"/>
                         <outlet property="urlField" destination="LMX-ab-Wh8" id="UIU-gE-ovk"/>
                         <segue destination="hR2-Sr-7bA" kind="unwind" identifier="didAddWishlistItem" unwindAction="unwindFromAddWishlist:" id="FYo-b9-ogJ"/>
-                        <segue destination="hR2-Sr-7bA" kind="unwind" identifier="editAddWishlistItem" unwindAction="unwindFromAddWishlist:" id="RSR-nm-bOL"/>
+                        <segue destination="hR2-Sr-7bA" kind="unwind" identifier="didEditWishlistItem" unwindAction="unwindFromAddWishlist:" id="RSR-nm-bOL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pkd-9h-QIa" userLabel="First Responder" sceneMemberID="firstResponder"/>

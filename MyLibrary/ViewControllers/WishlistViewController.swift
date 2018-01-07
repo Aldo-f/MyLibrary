@@ -34,6 +34,7 @@ class WishlistViewController: UIViewController {
             let destination = segue.destination as! AddWishlistItemViewController
             let wishlistItem = items[indexPathToEdit!.row]
             destination.item = wishlistItem
+            destination.itemEdited = true
         default:
             fatalError("Unkown segue")
         }
@@ -53,6 +54,9 @@ class WishlistViewController: UIViewController {
             tableView.beginUpdates()
             tableView.insertRows(at: [IndexPath(row: items.count - 1, section: 0)], with: .automatic)
             tableView.endUpdates()
+        case "didEditWishlistItem"?:
+            // herlaad de rij waar de gebruiker daarnet op edit geklikt heeft
+            tableView.reloadRows(at: [indexPathToEdit], with: .automatic)
         default:
             fatalError("Unknown segue")
         }
@@ -62,6 +66,31 @@ class WishlistViewController: UIViewController {
 extension WishlistViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let itemBoughtAction = UIContextualAction(style: .normal, title: "Gekocht") {
+            (action, view, completionHandler) in
+            let alert = UIAlertController(title: "Boek kopen", message: "Ben je zeker dat je niet boek als gekocht wil aanduiden?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ja", style: .destructive, handler: { (action) in
+                let item = self.items[indexPath.row]
+                let book = Book(name: item.name, authors: item.authors, isbn: item.isbn, description: item.bookDescription)
+                
+                // we voegen nu het boek toe en verwijderen het wishlistitem
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(book)
+                    realm.delete(item)
+                    
+                    // verwijder dan de rij uit de TableView
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }))
+
+            alert.addAction(UIAlertAction(title: "Nee", style: .default, handler: nil))
+
+            self.present(alert, animated: true, completion: nil)
+            completionHandler(true)
+        }
+        itemBoughtAction.backgroundColor = UIColor.green
+        
         let editAction = UIContextualAction(style: .normal, title: "Bewerk") {
             (action, view, completionHandler) in
             self.indexPathToEdit = indexPath
@@ -86,7 +115,7 @@ extension WishlistViewController: UITableViewDelegate {
             
             completionHandler(true)
         }
-        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction, itemBoughtAction])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -175,11 +204,11 @@ extension WishlistViewController: UISearchBarDelegate {
             var tmp: NSString = ""
             if searchBar.selectedScopeButtonIndex == 0 {
                 // Auteurs
-                tmp = (item.book?.authors ?? "") as NSString
+                tmp = (item.authors) as NSString
             }
             if searchBar.selectedScopeButtonIndex == 1 {
                 // Titel
-                tmp = (item.book?.name ?? "") as NSString
+                tmp = (item.name) as NSString
             }
             
             let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
